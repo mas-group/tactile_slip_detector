@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node ns="slip_detection" name="tactile_flow_extractor" pkg="slip_detection"
+          type="tactile_flow_extractor_node" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.1"/>
+
+         <!-- a list of the sensors to calculate their tactile flow -->
+        <rosparam param="tactile_sensors">
+        - 'a'
+        - 'b'
+        - 'c'
+        - 'd'
+        </rosparam>
+
+    </node>
+
+    <test test-name="test_tactile_flow_extractor" pkg="slip_detection"
+          type="test_tactile_flow_extractor.py">
+
+        <remap from="~event_out" to="/slip_detection/tactile_flow_extractor/event_in"/>
+        <remap from="~component_input" to="/slip_detection/tactile_flow_extractor/tactile_data"/>
+        <remap from="~component_output" to="/slip_detection/tactile_flow_extractor/tactile_flow"/>
+
+    </test>
+</launch>

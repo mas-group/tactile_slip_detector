@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>tactile_slip_detector</name>
+  <version>0.1.0</version>
+  <description>
+    A package to detect a slippage of a grasped object using
+    tactile sensor information.
+  </description>
+  <license>GPLv3</license>
+
+  <maintainer email="jose.sanchez.loza@gmail.com">Jose Sanchez</maintainer>
+  <author email="jose.sanchez.loza@gmail.com">Jose Sanchez</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- This component requires a 'tactile sensor adapter' (e.g. sdh_tactile_adapter
+         could be included here and its 'tactile_data_out' topic should be remapped
+         to be the input topic of this node.
+
+         Example:
+         <remap from="~tactile_data_out" to="/slip_detection/tactile_flow_extractor/tactile_data"/>
+    -->
+
+    <node ns="slip_detection" name="tactile_flow_extractor" pkg="slip_detection"
+          type="tactile_flow_extractor_node" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.03"/>
+
+        <!-- the list of tactile sensors -->
+        <rosparam param="tactile_sensors">
+            - 'thumb_proximal'
+            - 'thumb_distal'
+            - 'finger_1_proximal'
+            - 'finger_1_distal'
+            - 'finger_2_proximal'
+            - 'finger_2_distal'
+        </rosparam>
+    </node>
+
+</launch>

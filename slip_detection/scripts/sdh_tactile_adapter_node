@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import slip_detection.sdh_tactile_adapter
+
+if __name__ == '__main__':
+    slip_detection.sdh_tactile_adapter.main()

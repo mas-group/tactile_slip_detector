@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- This is an example launch file that uses the SDH tactile adapter -->
+
+    <!-- SDH tactile adapter -->
+    <node ns="slip_detection" name="sdh_tactile_adapter" pkg="slip_detection"
+          type="sdh_tactile_adapter_node" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.03"/>
+
+        <!-- mapping between the SDH matrix ID's and the sensors names -->
+        <rosparam param="tactile_sensors">
+            - 'thumb_proximal': 0
+            - 'thumb_distal': 1
+            - 'finger_1_proximal': 2
+            - 'finger_1_distal': 3
+            - 'finger_2_proximal': 4
+            - 'finger_2_distal': 5
+        </rosparam>
+
+        <remap from="~tactile_data_in" to="/dsa_controller/tactile_data"/>
+        <remap from="~tactile_data_out" to="/slip_detection/sdh_tactile_adapter/tactile_data"/>
+        <remap from="~event_in" to="/slip_detection/sdh_tactile_adapter/event_in"/>
+    </node>
+
+    <!-- Tactile intensity extractor -->
+    <node ns="slip_detection" name="intensity_extractor" pkg="slip_detection"
+          type="intensity_extractor_node" output="screen">
+
+        <!-- the type of tactile data to be published -->
+        <param name="tactile_data_type" type="str" value="mean_intensity"/>
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.03"/>
+
+        <!-- the list of tactile sensors -->
+        <rosparam param="tactile_sensors">
+            - 'thumb_proximal'
+            - 'thumb_distal'
+            - 'finger_1_proximal'
+            - 'finger_1_distal'
+            - 'finger_2_proximal'
+            - 'finger_2_distal'
+        </rosparam>
+
+        <remap from="~tactile_data" to="/slip_detection/sdh_tactile_adapter/tactile_data"/>
+    </node>
+
+    <!-- Tactile flow extractor -->
+    <node ns="slip_detection" name="tactile_flow_extractor" pkg="slip_detection"
+          type="tactile_flow_extractor_node" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.03"/>
+
+        <!-- the list of tactile sensors -->
+        <rosparam param="tactile_sensors">
+            - 'thumb_proximal'
+            - 'thumb_distal'
+            - 'finger_1_proximal'
+            - 'finger_1_distal'
+            - 'finger_2_proximal'
+            - 'finger_2_distal'
+        </rosparam>
+
+        <remap from="~tactile_data" to="/slip_detection/sdh_tactile_adapter/tactile_data"/>
+    </node>
+
+    <!-- Tactile slip detector -->
+    <node ns="slip_detection" name="slip_detector" pkg="slip_detection"
+          type="slip_detector_node" output="screen">
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.03"/>
+
+        <remap from="~tactile_flow" to="/slip_detection/tactile_flow_extractor/tactile_flow"/>
+        <remap from="~intensity_data" to="/slip_detection/intensity_extractor/intensity_data"/>
+
+    </node>
+</launch>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+    <node ns="slip_detection" name="sdh_tactile_adapter" pkg="slip_detection"
+          type="sdh_tactile_adapter_node" output="screen">
+
+    <!-- the cycle time of the node (in seconds) -->
+    <param name="cycle_time" type="double" value="0.03"/>
+
+    <!-- mapping between the SDH matrix ID's and the sensors names -->
+    <rosparam param="tactile_sensors">
+        - 'thumb_proximal': 0
+        - 'thumb_distal': 1
+        - 'finger_1_proximal': 2
+        - 'finger_1_distal': 3
+        - 'finger_2_proximal': 4
+        - 'finger_2_distal': 5
+    </rosparam>
+
+    <remap from="~tactile_data_in" to="/dsa_controller/tactile_data"/>
+    <remap from="~tactile_data_out" to="/slip_detection/sdh_tactile_adapter/tactile_data"/>
+    <remap from="~event_in" to="/slip_detection/sdh_tactile_adapter/event_in"/>
+
+    </node>
+</launch>

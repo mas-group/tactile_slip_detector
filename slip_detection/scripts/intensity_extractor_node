@@ -1,0 +1,6 @@
+#!/usr/bin/env python
+
+import slip_detection.intensity_extractor
+
+if __name__ == '__main__':
+    slip_detection.intensity_extractor.main()

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    <node ns="slip_detection" name="sdh_tactile_adapter" pkg="slip_detection"
+          type="sdh_tactile_adapter_node" output="screen">
+
+    <!-- the cycle time of the node (in seconds) -->
+    <param name="cycle_time" type="double" value="0.1"/>
+
+    <!-- mapping between the SDH matrix ID's and the sensors names -->
+    <rosparam param="tactile_sensors">
+        - 'sensor_1': 0
+        - 'sensor_2': 1
+    </rosparam>
+
+    </node>
+
+    <test test-name="test_sdh_tactile_adapter" pkg="slip_detection"
+          type="test_sdh_tactile_adapter.py">
+
+        <remap from="~event_out" to="/slip_detection/sdh_tactile_adapter/event_in"/>
+        <remap from="~component_input" to="/slip_detection/sdh_tactile_adapter/tactile_data_in"/>
+        <remap from="~component_output" to="/slip_detection/sdh_tactile_adapter/tactile_data_out"/>
+
+    </test>
+</launch>

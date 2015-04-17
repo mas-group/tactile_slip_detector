@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+import slip_detection.tactile_flow_extractor
+
+if __name__ == '__main__':
+    slip_detection.tactile_flow_extractor.main()
+

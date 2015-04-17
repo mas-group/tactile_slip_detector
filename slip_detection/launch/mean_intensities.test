@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <node ns="slip_detection" name="intensity_extractor" pkg="slip_detection"
+          type="intensity_extractor_node" output="screen">
+
+        <!-- the type of tactile data to be published -->
+        <param name="tactile_data_type" type="str" value="mean_tactel_intensity"/>
+
+        <!-- the cycle time of the node (in seconds) -->
+        <param name="cycle_time" type="double" value="0.1"/>
+
+        <!-- the list of tactile sensors -->
+        <rosparam param="tactile_sensors">
+            - 'sensor_1'
+            - 'sensor_2'
+        </rosparam>
+
+    </node>
+
+    <test test-name="test_intensity_extractor" pkg="slip_detection"
+          type="test_intensity_extractor.py">
+
+        <remap from="~event_out" to="/slip_detection/intensity_extractor/event_in"/>
+        <remap from="~component_input" to="/slip_detection/intensity_extractor/tactile_data"/>
+        <remap from="~component_output" to="/slip_detection/intensity_extractor/intensity_data"/>
+
+    </test>
+</launch>
